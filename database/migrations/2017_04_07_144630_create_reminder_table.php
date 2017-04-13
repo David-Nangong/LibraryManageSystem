@@ -18,7 +18,7 @@ class CreateReminderTable extends Migration
             $table->string('id');
             $table->string('order_id');
             $table->integer('type');
-            $table->string('content');
+            $table->string('content',512);
             $table->dateTime('send_time');
             $table->boolean('is_send');
             $table->timestamps();
