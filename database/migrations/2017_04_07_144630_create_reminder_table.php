@@ -14,13 +14,14 @@ class CreateReminderTable extends Migration
     public function up()
     {
         //
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('id');
+        Schema::create('reminders', function (Blueprint $table) {
+            $table->string('id')->primary();
             $table->string('order_id');
             $table->integer('type');
-            $table->string('content',512);
-            $table->dateTime('send_time');
-            $table->boolean('is_send');
+            $table->string('content',1024);
+            $table->dateTime('send_time')->nullable();
+            $table->boolean('is_send')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -33,5 +34,6 @@ class CreateReminderTable extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('reminders');
     }
 }

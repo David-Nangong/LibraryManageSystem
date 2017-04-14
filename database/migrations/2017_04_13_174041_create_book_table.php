@@ -16,18 +16,22 @@ class CreateBookTable extends Migration
         //
         Schema::create('books',function(Blueprint $table)
         {
-            $table->string('id');
+            $table->string('id')->primary();
             $table->string('name');
-            $table->string('author');
-            $table->string('publisher');
-            $table->dateTime('publish_date');
-            $table->dateTime('last_borrow_date');
-            $table->decimal('prize',6,2);
-            $table->string('isbn');
-            $table->string('series');
-            $table->string('owner');
-            $table->boolean('is_borrow');
-            $table->integer('borrow_times');
+            $table->string('author')->nullable();
+            $table->string('synopsis',256)->nullable();
+            $table->text('introduction')->nullable();
+            $table->string('publisher')->nullable();
+            $table->date('publish_date')->nullable();
+            $table->dateTime('last_borrow_date')->nullable();
+            $table->decimal('prize',6,2)->nullable();
+            $table->string('isbn')->nullable();
+            $table->string('series')->nullable();
+            $table->string('owner')->nullable();
+            $table->boolean('is_borrow')->default(false);
+            $table->integer('borrow_times')->nullable();
+            $table->boolean('is_frozen')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -40,5 +44,6 @@ class CreateBookTable extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('books');
     }
 }
